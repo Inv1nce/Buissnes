@@ -852,6 +852,15 @@ body.has-mobile-cta { padding-bottom: 78px; }
   will-change: transform;
 }
 .parrot svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.parrot img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+/* Кадры спрайт-листа: клетка ровно по размеру блока, сдвигаем фон */
+.parrot-sprite {
+  display: block;
+  width: 100%; height: 100%;
+  background-repeat: no-repeat;
+  image-rendering: auto;
+}
 .parrot.is-on { opacity: 1; }
 
 .parrot-wing { transform-origin: 34px 30px; }

@@ -221,3 +221,97 @@ Left-facing side profile, transparent background, no ground plane, no reflection
 Во всех четырёх случаях меняется **только** функция `setState()`
 и содержимое `<span class="parrot">`. Логика перелётов, пауз
 и выбора действий остаётся как есть.
+
+---
+
+## 7. Разбор первого листа
+
+Первый прогон дал очень хороший стиль: плоская векторная заливка,
+спокойная птица без мультяшности, палитра почти точно попала в сайт,
+фон прозрачный. Это база, её менять не нужно.
+
+Что мешает собрать из этого анимацию:
+
+1. **Птица смотрит в разные стороны.** Три сидящие позы смотрят влево,
+   три в полёте — вправо. В анимации она будет разворачиваться на 180°
+   при каждой смене кадра.
+2. **В полёте видны опущенные лапы.** Так читается «машет крыльями,
+   стоя на земле», а не «летит». В полёте лапы подбираются под хвост.
+3. **Хохолок и щека гуляют от кадра к кадру.** На одной позе хохолок
+   зачёсан назад, на другой торчит вверх, пятно у глаза разной формы.
+   При переключении кадров голова будет «дёргаться».
+4. **Разный масштаб и разная высота лап.** Кадры придётся выравнивать
+   руками в любом редакторе — ни одна модель не даёт совпадения по пикселю.
+5. **Нет позы «осматривается»** — голова поднята вверх.
+6. **Местами три четверти вместо строгого профиля** — видно второе крыло
+   и слишком фронтальное пятно у глаза.
+
+### Что оставить как эталон
+
+Поза с опущенной к крылу головой и закрытым глазом (верхний ряд, справа) —
+лучшая на листе. Используйте её референсом для всей серии чистки перьев.
+
+### Промт для второго прогона
+
+```
+Using the attached reference sheet, redraw the SAME parrot as a corrected
+character sheet. Keep the exact style, shapes and colours of the reference.
+
+Fix these things:
+- EVERY pose must face RIGHT. The beak points right, the tail points left.
+  No mirrored poses, no exceptions.
+- Strict side profile in every pose. Only one wing visible, only one eye
+  visible, the cheek patch seen from the side, never from the front.
+- The crest, the cheek patch and the beak must be IDENTICAL in shape and
+  size in every single pose. Do not restyle the head between poses.
+- In all flying poses the legs are tucked up under the tail and hidden.
+  No feet, no legs, no standing pose while the wings are spread.
+- All poses at exactly the same scale and the same camera distance.
+- In the perched poses the feet rest on one common invisible baseline.
+- In the flying poses the centre of the body sits at one common height.
+
+SIX poses, two rows of three, evenly spaced, transparent background:
+1. perched, wings folded, head level, calm, eye open
+2. perched, head raised and tilted upward, looking up and around, alert
+3. perched, head lowered and tucked into the folded wing, eye closed, preening
+4. flying, legs tucked, wings raised high above the back
+5. flying, legs tucked, wings spread horizontally
+6. flying, legs tucked, wings pushed down below the body
+
+No ground, no branch, no shadow, no text, no labels, no watermark.
+```
+
+После того как лист получится ровным, по нему генерируются 14 отдельных
+кадров из раздела 4 — уже по одному, каждый на своём холсте.
+
+### Сборка ленты
+
+Кадры складываются в одну картинку сеткой 5 колонок × 3 ряда,
+клетка квадратная (например 256×256), порядок слева направо и сверху вниз:
+
+| № | Кадр | № | Кадр |
+|---|---|---|---|
+| 0 | полёт, крылья вверху | 7 | моргает |
+| 1 | полёт, крылья горизонтально | 8 | смотрит вверх |
+| 2 | полёт, крылья внизу | 9 | смотрит прямо |
+| 3 | полёт, крылья поднимаются | 10 | смотрит вниз |
+| 4 | посадка, крылья тормозят | 11 | голова пошла к крылу |
+| 5 | посадка, лапы коснулись | 12 | клюв в перьях |
+| 6 | сидит спокойно | 13 | голова поднимается |
+
+Клетка 14 остаётся пустой.
+
+Дальше в `assets/js/main.js` в блоке `PARROT` наверху файла:
+
+```js
+var PARROT = {
+  sprite: 'assets/parrot.png',
+  cols: 5,
+  rows: 3,
+  ...
+};
+```
+
+Всё остальное код сделает сам: полёт зациклит, посадку проиграет один раз,
+осматривание и чистку перьев — туда и обратно, в остальное время покажет
+кадр «сидит спокойно».

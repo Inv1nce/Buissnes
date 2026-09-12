@@ -16,6 +16,32 @@
     email:    'hello@cagroup.ru'
   };
 
+  /* ---------------------------------------------------------
+     ПОПУГАЙ. Пока sprite не указан, работает временный SVG
+     из разметки. Как только появится спрайт-лист — пропишите
+     путь и размеры, остальное подхватится само.
+     Порядок кадров в ленте (слева направо, сверху вниз):
+       0-3   полёт: крылья вверх / вниз / внизу / вверх
+       4-5   посадка
+       6     сидит спокойно
+       7     моргает
+       8-10  осматривается: вверх / прямо / вниз
+       11-13 чистит перья
+     --------------------------------------------------------- */
+  var PARROT = {
+    sprite: null,          // 'assets/parrot.png'
+    cols: 5,
+    rows: 3,
+    clips: {
+      fly:   { from: 0,  to: 3,  fps: 12, loop: true },
+      land:  { from: 4,  to: 5,  fps: 9 },
+      idle:  { from: 6,  to: 6 },
+      blink: { from: 7,  to: 7 },
+      look:  { from: 8,  to: 10, fps: 4, pingpong: true },
+      preen: { from: 11, to: 13, fps: 5, pingpong: true }
+    }
+  };
+
   var root = document.documentElement;
   root.classList.remove('no-js');
 
@@ -326,6 +352,64 @@
 
     var stops = [], current = -1, landTimer = null, actTimer = null;
 
+    /* Проигрыватель спрайт-листа. Возвращает null, если листа нет —
+       тогда состояния отыгрывает SVG через классы, как раньше. */
+    var sprite = (function () {
+      if (!PARROT.sprite) return null;
+
+      parrot.innerHTML = '';
+      var stage = document.createElement('span');
+      stage.className = 'parrot-sprite';
+      stage.style.backgroundImage = 'url("' + PARROT.sprite + '")';
+      stage.style.backgroundSize = (PARROT.cols * 100) + '% ' + (PARROT.rows * 100) + '%';
+      parrot.appendChild(stage);
+
+      var timer = null, seq = [], pos = 0, looping = false;
+
+      function show(index) {
+        var col = index % PARROT.cols;
+        var row = Math.floor(index / PARROT.cols);
+        var x = PARROT.cols > 1 ? (col / (PARROT.cols - 1)) * 100 : 0;
+        var y = PARROT.rows > 1 ? (row / (PARROT.rows - 1)) * 100 : 0;
+        stage.style.backgroundPosition = x + '% ' + y + '%';
+      }
+
+      function play(name, onEnd) {
+        var clip = PARROT.clips[name];
+        if (!clip) return;
+
+        window.clearInterval(timer);
+        seq = [];
+        for (var i = clip.from; i <= clip.to; i++) seq.push(i);
+        if (clip.pingpong) {
+          for (var j = seq.length - 2; j > 0; j--) seq.push(seq[j]);
+        }
+
+        looping = Boolean(clip.loop);
+        pos = 0;
+        show(seq[0]);
+        if (seq.length < 2) { if (onEnd) onEnd(); return; }
+
+        timer = window.setInterval(function () {
+          pos++;
+          if (pos >= seq.length) {
+            if (looping) { pos = 0; }
+            else {
+              window.clearInterval(timer);
+              pos = seq.length - 1;
+              show(seq[pos]);
+              if (onEnd) onEnd();
+              return;
+            }
+          }
+          show(seq[pos]);
+        }, 1000 / (clip.fps || 12));
+      }
+
+      play('idle');
+      return { play: play, stop: function () { window.clearInterval(timer); } };
+    })();
+
     /* Поведение на месте: птица сидит, иногда осматривается,
        иногда чистит перья. Одна точка входа — setState(), поэтому
        при замене графики на спрайт или Rive меняется только она. */
@@ -359,8 +443,10 @@
         if (!parrot.classList.contains('is-perched')) return;
         var act = pickAct();
         parrot.setAttribute('data-act', act.name);
+        if (sprite) sprite.play(act.name);
         actTimer = window.setTimeout(function () {
           parrot.removeAttribute('data-act');
+          if (sprite) sprite.play('idle');
           idleLoop();
         }, act.ms);
       }, 3500 + Math.random() * 5500);
@@ -371,9 +457,11 @@
         stopIdle();
         parrot.classList.add('is-on', 'is-flying');
         parrot.classList.remove('is-perched');
+        if (sprite) sprite.play('fly');
       } else {
         parrot.classList.remove('is-flying');
         parrot.classList.add('is-perched');
+        if (sprite) sprite.play('land', function () { sprite.play('idle'); });
         idleLoop();
       }
     }
