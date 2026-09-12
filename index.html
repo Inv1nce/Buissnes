@@ -555,16 +555,23 @@
     </svg>
   </span>
 
-  <!-- Временный попугай. Заменить на присланную картинку: см. README -->
+  <!-- Временный попугай. Заменяется своей графикой одной правкой — см. README.
+       Состояния задаёт скрипт: is-flying, is-perched, data-act="look" / "preen". -->
   <span class="parrot" id="parrot">
     <svg viewBox="0 0 64 64" aria-hidden="true">
       <path class="parrot-tail" d="M22 36 3 55c6 1 12-1 17-6l6-6Z" fill="#1F6F5C"/>
       <ellipse class="parrot-body" cx="31" cy="34" rx="14" ry="11.5" transform="rotate(-22 31 34)" fill="#C42B1F"/>
-      <circle class="parrot-head" cx="43" cy="21" r="9.4" fill="#C42B1F"/>
-      <path class="parrot-crest" d="M41 12c1-4 4-6 7-6-2 2-2 4-1 6l-6 .5Z" fill="#E0A020"/>
-      <path class="parrot-beak" d="M51.5 18c4 .3 6.5 2.4 6.5 4.6 0 2.4-2.7 4.4-6 4.4 1.4-2 1.6-5.6-.5-9Z" fill="#E0A020"/>
-      <circle cx="46" cy="19.4" r="2.4" fill="#FDF8EC"/>
-      <circle cx="46.4" cy="19.4" r="1.3" fill="#2B2119"/>
+
+      <g class="parrot-head-group">
+        <circle cx="43" cy="21" r="9.4" fill="#C42B1F"/>
+        <path d="M41 12c1-4 4-6 7-6-2 2-2 4-1 6l-6 .5Z" fill="#E0A020"/>
+        <path d="M51.5 18c4 .3 6.5 2.4 6.5 4.6 0 2.4-2.7 4.4-6 4.4 1.4-2 1.6-5.6-.5-9Z" fill="#E0A020"/>
+        <circle cx="46" cy="19.4" r="2.6" fill="#FDF8EC"/>
+        <g class="parrot-eye">
+          <circle cx="46.4" cy="19.4" r="1.35" fill="#2B2119"/>
+        </g>
+      </g>
+
       <path class="parrot-foot" d="M31 45v5M27 45v5" stroke="#A9713C" stroke-width="2.4" stroke-linecap="round"/>
       <ellipse class="parrot-wing" cx="29" cy="31" rx="11" ry="6.4" fill="#1F6F5C"/>
     </svg>

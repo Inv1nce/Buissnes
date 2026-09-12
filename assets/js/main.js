@@ -324,14 +324,67 @@
     var parrot = document.getElementById('parrot');
     if (!parrot) return;
 
-    var stops = [], current = -1, landTimer = null;
+    var stops = [], current = -1, landTimer = null, actTimer = null;
+
+    /* Поведение на месте: птица сидит, иногда осматривается,
+       иногда чистит перья. Одна точка входа — setState(), поэтому
+       при замене графики на спрайт или Rive меняется только она. */
+    var ACTS = [
+      { name: 'look',  ms: 2700, weight: 6 },
+      { name: 'preen', ms: 3000, weight: 4 }
+    ];
+
+    function pickAct() {
+      var total = 0, i;
+      for (i = 0; i < ACTS.length; i++) total += ACTS[i].weight;
+      var roll = Math.random() * total;
+      for (i = 0; i < ACTS.length; i++) {
+        roll -= ACTS[i].weight;
+        if (roll <= 0) return ACTS[i];
+      }
+      return ACTS[0];
+    }
+
+    function stopIdle() {
+      window.clearTimeout(actTimer);
+      parrot.removeAttribute('data-act');
+    }
+
+    function idleLoop() {
+      window.clearTimeout(actTimer);
+      if (!motionOn() || !parrot.classList.contains('is-perched')) return;
+
+      // пауза между действиями — от 3,5 до 9 секунд, чтобы не мельтешил
+      actTimer = window.setTimeout(function () {
+        if (!parrot.classList.contains('is-perched')) return;
+        var act = pickAct();
+        parrot.setAttribute('data-act', act.name);
+        actTimer = window.setTimeout(function () {
+          parrot.removeAttribute('data-act');
+          idleLoop();
+        }, act.ms);
+      }, 3500 + Math.random() * 5500);
+    }
+
+    function setState(state) {
+      if (state === 'fly') {
+        stopIdle();
+        parrot.classList.add('is-on', 'is-flying');
+        parrot.classList.remove('is-perched');
+      } else {
+        parrot.classList.remove('is-flying');
+        parrot.classList.add('is-perched');
+        idleLoop();
+      }
+    }
 
     // Слушателей вешаем всегда: иначе попугай не оживёт после того,
     // как посетитель включит движение кнопкой в шапке.
     function apply() {
       if (!motionOn()) {
+        stopIdle();
         parrot.style.display = 'none';
-        parrot.classList.remove('is-on', 'is-flying', 'is-landed');
+        parrot.classList.remove('is-on', 'is-flying', 'is-perched');
         return false;
       }
       parrot.style.display = '';
@@ -376,15 +429,11 @@
       current = next;
 
       var stop = stops[next];
-      parrot.classList.add('is-on', 'is-flying');
-      parrot.classList.remove('is-landed');
+      setState('fly');
       parrot.style.transform = 'translate3d(' + stop.x + 'px, ' + stop.ty + 'px, 0)';
 
       window.clearTimeout(landTimer);
-      landTimer = window.setTimeout(function () {
-        parrot.classList.remove('is-flying');
-        if (stop.land) parrot.classList.add('is-landed');
-      }, 1150);
+      landTimer = window.setTimeout(function () { setState('perch'); }, 1150);
     }
 
     onScroll(update);
