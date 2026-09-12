@@ -77,7 +77,7 @@
     <div class="hero-paper" aria-hidden="true"></div>
 
     <div class="container hero-inner">
-      <div class="hero-copy" data-parrot="hero">
+      <div class="hero-copy">
         <p class="eyebrow">
           <span class="eyebrow-pin" aria-hidden="true"></span>
           Екатеринбург · Яндекс Карты и 2ГИС
@@ -103,7 +103,7 @@
       </div>
 
       <div class="hero-visual" aria-hidden="true">
-        <div class="map-card">
+        <div class="map-card" data-parrot>
           <div class="map-card-photos">
             <span class="ph ph-1"></span>
             <span class="ph ph-2"></span>
@@ -204,7 +204,7 @@
   <!-- ============ ЧТО ДЕЛАЕМ ============ -->
   <section class="section section-alt" id="services" data-route>
     <div class="container">
-      <header class="section-head" data-parrot="services">
+      <header class="section-head">
         <p class="section-tag reveal">Что делаем</p>
         <h2 class="reveal">Одна услуга — карточки на картах. И мы делаем её <span class="accent">целиком</span></h2>
         <p class="section-sub reveal">
@@ -214,7 +214,7 @@
       </header>
 
       <div class="cards cards-2">
-        <article class="card card-service reveal">
+        <article class="card card-service reveal" data-parrot>
           <span class="card-num" aria-hidden="true">01</span>
           <h3>Запуск и оформление</h3>
           <ul class="ticks">
@@ -346,13 +346,13 @@
   <!-- ============ ПОЧЕМУ МЫ ============ -->
   <section class="section" id="why" data-route>
     <div class="container">
-      <header class="section-head" data-parrot="why">
+      <header class="section-head">
         <p class="section-tag reveal">Почему мы</p>
         <h2 class="reveal">Три причины выбрать нас, а не подрядчика из чата</h2>
       </header>
 
       <div class="cards cards-3">
-        <article class="card card-why reveal">
+        <article class="card card-why reveal" data-parrot>
           <span class="card-icon icon-red" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.6"></circle>
@@ -548,7 +548,9 @@
     <path id="routeGhost" class="route-ghost" fill="none"></path>
     <path id="routePath" class="route-path" fill="none" mask="url(#routeReveal)"></path>
   </svg>
+</div>
 
+<div class="marker-layer" id="markerLayer" aria-hidden="true">
   <span class="route-x" id="routeX">
     <svg viewBox="0 0 34 34" aria-hidden="true">
       <path d="M7 7 27 27M27 7 7 27" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>

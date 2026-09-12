@@ -62,6 +62,20 @@
   function digits(value) { return String(value).replace(/\D/g, ''); }
   function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
 
+  /* Координаты элемента в документе БЕЗ учёта CSS-трансформаций.
+     getBoundingClientRect врёт, пока на элементе висит сдвиг
+     анимации появления: маршрут и насесты уезжали на её высоту. */
+  function docTop(el) {
+    var y = 0;
+    while (el) { y += el.offsetTop; el = el.offsetParent; }
+    return y;
+  }
+  function docLeft(el) {
+    var x = 0;
+    while (el) { x += el.offsetLeft; el = el.offsetParent; }
+    return x;
+  }
+
   /* Один общий обработчик прокрутки — дешевле, чем пять разных */
   var scrollJobs = [];
   function onScroll(fn) { scrollJobs.push(fn); }
@@ -260,6 +274,7 @@
 
   function initRoute() {
     var layer = document.getElementById('routeLayer');
+    var markerLayer = document.getElementById('markerLayer');
     var svg = document.getElementById('routeSvg');
     var ghost = document.getElementById('routeGhost');
     var path = document.getElementById('routePath');
@@ -271,34 +286,48 @@
     var startY = 0, endY = 0;
 
     function build() {
-      // меряем высоту страницы БЕЗ самого слоя, иначе он меряет сам себя
+      // меряем высоту страницы БЕЗ слоёв, иначе они меряют сами себя
       layer.style.height = '0px';
+      if (markerLayer) markerLayer.style.height = '0px';
       var docH = Math.max(document.body.scrollHeight, root.scrollHeight);
       var W = root.clientWidth;
       layer.style.height = docH + 'px';
+      if (markerLayer) markerLayer.style.height = docH + 'px';
       svg.setAttribute('viewBox', '0 0 ' + W + ' ' + docH);
       svg.setAttribute('width', W);
       svg.setAttribute('height', docH);
 
+      /* Маршрут идёт под содержимым, поэтому может вилять через всю
+         ширину: внутри секции держится своего края, а переход на другую
+         сторону делает в зазоре между секциями, где нет текста. */
       var wide = W >= 940;
-      var lo = wide ? 30 : 11;
-      var hi = wide ? 116 : 40;
+      // на широком экране виляем размашисто по полям, на телефоне — узко
+      // по самым краям, иначе линия полезет через текст
+      var lo = Math.round(W * (wide ? 0.07 : 0.035));
+      var hi = Math.round(W * (wide ? 0.93 : 0.965));
+      var bulge = Math.round(W * (wide ? 0.13 : 0.05));
 
       var anchors = Array.prototype.slice.call(document.querySelectorAll('[data-route]'));
       if (!anchors.length) return;
 
       var pts = [];
       anchors.forEach(function (el, i) {
-        var top = el.getBoundingClientRect().top + window.scrollY;
+        var top = docTop(el);
         var h = el.offsetHeight;
-        pts.push({ x: i % 2 ? hi : lo, y: top + h * 0.22 });
-        pts.push({ x: i % 2 ? lo : hi, y: top + h * 0.78 });
+        var onLeft = i % 2 === 0;
+        var edge = onLeft ? lo : hi;
+        var inward = onLeft ? edge + bulge : edge - bulge;
+
+        // вход и выход держим в отступах секции, где нет текста:
+        // тогда диагональные переходы не пересекают заголовки
+        pts.push({ x: edge,   y: top + h * 0.04 });
+        pts.push({ x: inward, y: top + h * 0.50 });
+        pts.push({ x: edge,   y: top + h * 0.96 });
       });
 
       // финальный отрезок уводит маршрут к карточке заявки
-      var fr = formCard.getBoundingClientRect();
-      var fx = fr.left + window.scrollX + Math.min(46, fr.width * 0.14);
-      var fy = fr.top + window.scrollY - (wide ? 30 : 24);
+      var fx = docLeft(formCard) + Math.min(46, formCard.offsetWidth * 0.14);
+      var fy = docTop(formCard) - (wide ? 30 : 24);
       pts.push({ x: fx, y: fy });
 
       var d = 'M ' + pts[0].x + ' ' + pts[0].y;
@@ -481,23 +510,27 @@
 
     function build() {
       if (!apply()) return;
-      var wide = root.clientWidth >= 940;
       stops = [];
 
+      /* Птица садится лапами на верхнюю кромку элемента. В рисунке лапы
+         стоят на 0,81 высоты кадра, центр — на 0,5, значит центр нужно
+         поднять над кромкой на 0,31 высоты. */
+      var size = parrot.offsetWidth || 68;
+      var feetLift = size * 0.31;
+
       document.querySelectorAll('[data-parrot]').forEach(function (el) {
-        var r = el.getBoundingClientRect();
+        var top = docTop(el);
         stops.push({
-          y: r.top + window.scrollY,
-          x: r.left + window.scrollX + r.width - (wide ? 6 : 26),
-          ty: r.top + window.scrollY + (wide ? -6 : 2),
+          y: top,
+          x: docLeft(el) + Math.min(el.offsetWidth * 0.2, 90),
+          ty: top - feetLift,
           land: false
         });
       });
 
       // последняя остановка — крестик у заявки
       if (routeEnd.y) {
-        // садится чуть выше и правее крестика, чтобы крестик остался виден
-        stops.push({ y: routeEnd.y - 200, x: routeEnd.x + 14, ty: routeEnd.y - 34, land: true });
+        stops.push({ y: routeEnd.y - 200, x: routeEnd.x + 13, ty: routeEnd.y - feetLift + 4, land: true });
       }
 
       stops.sort(function (a, b) { return a.y - b.y; });
