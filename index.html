@@ -555,25 +555,52 @@
     </svg>
   </span>
 
-  <!-- Временный попугай. Заменяется своей графикой одной правкой — см. README.
-       Состояния задаёт скрипт: is-flying, is-perched, data-act="look" / "preen". -->
+  <!-- Попугай, векторная версия по утверждённому дизайну.
+       Состояния задаёт скрипт: is-flying, is-perched, data-act="look" / "preen".
+       Заменяется растровым спрайт-листом одной строкой — см. PARROT в main.js. -->
   <span class="parrot" id="parrot">
-    <svg viewBox="0 0 64 64" aria-hidden="true">
-      <path class="parrot-tail" d="M22 36 3 55c6 1 12-1 17-6l6-6Z" fill="#1F6F5C"/>
-      <ellipse class="parrot-body" cx="31" cy="34" rx="14" ry="11.5" transform="rotate(-22 31 34)" fill="#C42B1F"/>
-
-      <g class="parrot-head-group">
-        <circle cx="43" cy="21" r="9.4" fill="#C42B1F"/>
-        <path d="M41 12c1-4 4-6 7-6-2 2-2 4-1 6l-6 .5Z" fill="#E0A020"/>
-        <path d="M51.5 18c4 .3 6.5 2.4 6.5 4.6 0 2.4-2.7 4.4-6 4.4 1.4-2 1.6-5.6-.5-9Z" fill="#E0A020"/>
-        <circle cx="46" cy="19.4" r="2.6" fill="#FDF8EC"/>
-        <g class="parrot-eye">
-          <circle cx="46.4" cy="19.4" r="1.35" fill="#2B2119"/>
-        </g>
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <!-- хвост: два длинных пера -->
+      <g class="parrot-tail">
+        <path d="M48 80C40 94 26 108 8 118c12-6 22-13 30-21-3 8-6 14-10 20 12-9 24-21 32-33Z" fill="#1A5E4F"/>
+        <path d="M50 82c-6 12-16 24-30 34 9-5 17-11 23-18-2 6-5 11-8 16 10-8 19-19 25-29Z" fill="#237A64"/>
       </g>
 
-      <path class="parrot-foot" d="M31 45v5M27 45v5" stroke="#A9713C" stroke-width="2.4" stroke-linecap="round"/>
-      <ellipse class="parrot-wing" cx="29" cy="31" rx="11" ry="6.4" fill="#1F6F5C"/>
+      <!-- раскрытое крыло, видно только в полёте -->
+      <g class="parrot-wing-fly">
+        <path d="M68 52C56 29 36 11 12 4c15 15 27 33 34 51 5 11 17 9 22-3Z" fill="#1F6F5C"/>
+        <path d="M58 40C50 28 38 17 24 10M50 48C44 36 35 25 24 17M44 55C40 45 33 36 25 29"
+              stroke="#17544A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      </g>
+
+      <!-- туловище -->
+      <ellipse class="parrot-body" cx="58" cy="66" rx="25" ry="20"
+               transform="rotate(-32 58 66)" fill="#C42B1F"/>
+
+      <!-- лапы -->
+      <g class="parrot-foot">
+        <path d="M62 84v9M54 84v9" stroke="#8C6A44" stroke-width="5" stroke-linecap="round"/>
+        <path d="M62 93h7M62 93h-7M54 93h7M54 93h-7" stroke="#8C6A44" stroke-width="3.6" stroke-linecap="round"/>
+      </g>
+
+      <!-- голова: хохолок, щека, клюв, глаз -->
+      <g class="parrot-head-group">
+        <path class="parrot-crest" d="M71 26c-4-9-1-18 7-22-2 6-1 11 2 15 3-8 9-13 17-14-6 6-8 13-7 19Z" fill="#C42B1F"/>
+        <circle cx="84" cy="36" r="15" fill="#C42B1F"/>
+        <ellipse cx="89" cy="35" rx="8.5" ry="9.5" fill="#F6EFE1"/>
+        <path d="M82 41c4 2 9 2 13 0-1 4-3 7-7 7-4 0-6-3-6-7Z" fill="#B5821F" opacity=".9"/>
+        <path d="M97 27c8 0 15 6 15 11 0 5-4 9-9 9-2 0-3 0-4-1 5-6 4-14-2-19Z" fill="#B5821F"/>
+        <path d="M98 44c5-1 8 1 8 3 0 3-4 3-8 1-2-1-2-3 0-4Z" fill="#2B2119"/>
+        <circle cx="89" cy="32" r="3.2" fill="#2B2119"/>
+        <circle class="parrot-eye" cx="90" cy="30.9" r="1.2" fill="#F6EFE1"/>
+      </g>
+
+      <!-- сложенное крыло -->
+      <g class="parrot-wing">
+        <path d="M67 51c8 6 6 23-4 36-6 8-15 11-20 7-5-4-3-17 3-27 7-11 15-19 21-16Z" fill="#1F6F5C"/>
+        <path d="M62 60c3 5 1 16-5 24M56 63c3 5 1 15-5 23M50 68c2 5 1 12-3 18"
+              stroke="#17544A" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </g>
     </svg>
   </span>
 </div>
