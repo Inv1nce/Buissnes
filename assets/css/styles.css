@@ -856,8 +856,8 @@ body.has-mobile-cta { padding-bottom: 78px; }
 .parrot {
   position: absolute;
   top: 0; left: 0;   /* иначе точкой отсчёта станет конец потока в слое */
-  width: 58px; height: 58px;
-  margin: -29px 0 0 -29px;
+  width: 86px; height: 86px;
+  margin: -43px 0 0 -43px;
   opacity: 0;
   transition: transform 1.15s cubic-bezier(.37, .01, .2, 1), opacity .4s ease;
   will-change: transform;
@@ -980,7 +980,7 @@ body.has-mobile-cta { padding-bottom: 78px; }
 
   .footer-inner { grid-template-columns: 1.6fr 1fr; }
 
-  .parrot { width: 68px; height: 68px; margin: -34px 0 0 -34px; }
+  .parrot { width: 100px; height: 100px; margin: -50px 0 0 -50px; }
 }
 
 /* =========================================================
@@ -1064,7 +1064,7 @@ body.has-mobile-cta { padding-bottom: 78px; }
   .footer-nav { justify-content: flex-end; }
   .footer-meta { grid-column: 2; text-align: right; margin: 0; }
 
-  .parrot { width: 76px; height: 76px; margin: -38px 0 0 -38px; }
+  .parrot { width: 118px; height: 118px; margin: -59px 0 0 -59px; }
   .route-x { width: 42px; height: 42px; margin: -21px 0 0 -21px; }
 }
 
