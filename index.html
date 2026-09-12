@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>На виду — карточки на картах, бренд и интерьер для кафе в Екатеринбурге</title>
-<meta name="description" content="Отвечаем за то, как ваше кафе выглядит везде, где его видит клиент: от карточки в Яндекс Картах и 2ГИС до вывески у входа. Первый аудит карточки — бесплатно.">
-<meta name="theme-color" content="#FDF8F2">
+<title>CA Group — карточки бизнеса в Яндекс Картах и 2ГИС, Екатеринбург</title>
+<meta name="description" content="Оформляем и ведём карточки бизнеса в Яндекс Картах и 2ГИС. Магазины, салоны, клиники, автосервисы, кафе — любая точка на карте. Екатеринбург. Первый аудит бесплатно.">
+<meta name="theme-color" content="#070B16">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="На виду — как выглядит ваше кафе там, где его ищут">
-<meta property="og:description" content="Карточки в Яндекс Картах и 2ГИС, фирменный стиль, интерьер и вывески для кафе и кофеен Екатеринбурга. Первый аудит бесплатный.">
+<meta property="og:title" content="CA Group — вас выбирают на карте">
+<meta property="og:description" content="Оформление и ведение карточек бизнеса в Яндекс Картах и 2ГИС. Екатеринбург. Первый аудит бесплатно.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Golos+Text:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -22,22 +22,22 @@
 
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
-    <a class="brand" href="#top" aria-label="На виду — на главную">
+    <a class="brand" href="#top" aria-label="CA Group — на главную">
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"></path>
           <circle cx="12" cy="10" r="2.6"></circle>
         </svg>
       </span>
-      <span class="brand-text">На&nbsp;виду</span>
+      <span class="brand-text">CA&nbsp;Group</span>
     </a>
 
     <nav class="nav" id="nav" aria-label="Основная навигация">
       <ul class="nav-list">
-        <li><a href="#problem">Зачем это</a></li>
-        <li><a href="#services">Услуги</a></li>
+        <li><a href="#check">Проверка карточки</a></li>
+        <li><a href="#services">Что делаем</a></li>
+        <li><a href="#who">Кому подходит</a></li>
         <li><a href="#process">Как работаем</a></li>
-        <li><a href="#why">Почему мы</a></li>
         <li><a href="#contact">Контакты</a></li>
       </ul>
     </nav>
@@ -56,33 +56,37 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="top">
+    <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
     <div class="container hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow reveal">
-          <span class="dot" aria-hidden="true"></span>
-          Екатеринбург · кафе, кофейни, небольшие рестораны
+        <p class="eyebrow">
+          <span class="pulse" aria-hidden="true"></span>
+          Екатеринбург · Яндекс Карты и 2ГИС
         </p>
 
-        <h1 class="reveal">Ваше кафе видят раньше, чем&nbsp;находят дверь</h1>
+        <h1>Вас выбирают на&nbsp;карте — ещё до первого звонка</h1>
 
-        <p class="lede reveal">
-          «На&nbsp;виду» отвечает за то, как ваш бизнес выглядит везде, где его видит клиент —
-          от карточки на картах до вывески у входа. Начинаем с малого, растём вместе с вами.
+        <p class="lede">
+          CA&nbsp;Group оформляет и ведёт карточки бизнеса в Яндекс Картах и 2ГИС.
+          Магазин, салон, клиника, автосервис, кофейня — если у вас есть точка на карте,
+          вас там уже сравнивают с соседями. Вопрос только в том, как вы в этом сравнении выглядите.
         </p>
 
-        <div class="hero-actions reveal">
+        <div class="hero-actions">
           <a class="btn btn-primary btn-lg" href="#contact">Бесплатный аудит карточки</a>
-          <a class="btn btn-ghost btn-lg" href="#services">Что мы делаем</a>
+          <a class="btn btn-ghost btn-lg" href="#check">Проверить за минуту</a>
         </div>
 
-        <p class="hero-note reveal">
-          Аудит ни к чему не обязывает. Просто покажем, что видит человек,
-          который выбирает между вами и кофейней через дорогу.
+        <p class="hero-note">
+          Аудит ни к чему не обязывает. Покажем, что видит человек,
+          который прямо сейчас выбирает между вами и точкой через дорогу.
         </p>
       </div>
 
-      <!-- Декоративная иллюстрация: как выглядит карточка на картах -->
-      <div class="hero-visual reveal" aria-hidden="true">
+      <div class="hero-visual" aria-hidden="true">
         <div class="map-card">
           <div class="map-card-photos">
             <span class="ph ph-1"></span>
@@ -91,13 +95,13 @@
           </div>
           <div class="map-card-body">
             <div class="map-card-title">
-              <strong>Кофейня на Ленина</strong>
+              <strong>Ваш бизнес</strong>
               <span class="rating"><span class="stars">★★★★★</span> 4,9</span>
             </div>
-            <p class="map-card-meta">Кофейня · Открыто до 22:00 · 300 м</p>
+            <p class="map-card-meta">Открыто до 21:00 · 300 м · Есть парковка</p>
             <ul class="map-card-checks">
-              <li>Фото свежие, за этот месяц</li>
-              <li>Меню и цены на месте</li>
+              <li>Фото за этот месяц</li>
+              <li>Услуги и цены на месте</li>
               <li>Ответ на все 24 отзыва</li>
             </ul>
           </div>
@@ -105,7 +109,7 @@
         <div class="map-card map-card-ghost">
           <div class="map-card-body">
             <div class="map-card-title">
-              <strong>Кафе напротив</strong>
+              <strong>Точка напротив</strong>
               <span class="rating rating-dim">★★★☆☆ 3,4</span>
             </div>
             <p class="map-card-meta">Режим работы не указан</p>
@@ -113,150 +117,291 @@
         </div>
       </div>
     </div>
+
+    <!-- бегущая строка: кого мы ведём -->
+    <div class="marquee" id="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Магазины</span><i></i><span>Салоны красоты</span><i></i><span>Стоматологии</span><i></i>
+        <span>Автосервисы</span><i></i><span>Кофейни</span><i></i><span>Фитнес-студии</span><i></i>
+        <span>Клиники</span><i></i><span>Барбершопы</span><i></i><span>Пункты выдачи</span><i></i>
+        <span>Сервисные центры</span><i></i><span>Детские центры</span><i></i><span>Шиномонтаж</span><i></i>
+        <span>Кафе и бары</span><i></i><span>Ветклиники</span><i></i><span>Мастерские</span><i></i>
+      </div>
+    </div>
   </section>
 
   <!-- ============ ПРОБЛЕМА ============ -->
-  <section class="section section-problem" id="problem">
+  <section class="section section-alt" id="problem">
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Что происходит без вас</p>
-        <h2 class="reveal">Клиент выбирает кафе за минуту — и делает это прямо в картах</h2>
+        <h2 class="reveal">Решение принимается за полминуты, прямо в карте</h2>
         <p class="section-sub reveal">
-          Он не ищет именно вас. Он открывает карту, видит четыре точки рядом и сравнивает.
-          Вы уже участвуете в этом сравнении, даже если никогда не занимались карточкой.
+          Клиент не ищет именно вас. Он открывает карту, видит рядом пять-семь точек
+          и выбирает. Вы уже участвуете в этом сравнении — даже если никогда не занимались карточкой.
         </p>
       </header>
 
       <div class="cards cards-3">
-        <article class="card card-problem reveal">
+        <article class="card reveal">
           <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 6h7v12H3zM14 6h7v12h-7z"></path><path d="M10 12h4"></path>
             </svg>
           </span>
-          <h3>Вас сравнивают с соседями</h3>
+          <h3>Вас сравнивают, а вы не участвуете</h3>
           <p>
-            Три фото против тридцати, рейтинг 4,2 против 4,8 — и человек уходит туда,
-            где всё выглядит понятнее. Он не проверяет, где вкуснее кофе. Он смотрит на экран.
+            Три фото против тридцати, рейтинг 4,2 против 4,8, пустое описание против понятного.
+            Человек не проверяет, где на самом деле лучше. Он смотрит на экран и выбирает глазами.
           </p>
         </article>
 
-        <article class="card card-problem reveal">
+        <article class="card reveal">
           <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v6"></path><path d="M5.6 5.6 9.8 9.8"></path><path d="M18.4 5.6 14.2 9.8"></path>
-              <rect x="4" y="12" width="16" height="9" rx="2"></rect>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+              <path d="M8 11V8a4 4 0 0 1 8 0v3"></path>
             </svg>
           </span>
           <h3>Пустая карточка — это закрытая дверь</h3>
           <p>
-            Не указан режим работы, нет меню, фото с открытия трёхлетней давности.
-            Никто не станет звонить и уточнять — просто построит маршрут в другое место.
+            Не указан режим работы, нет услуг и цен, фото трёхлетней давности, телефон старый.
+            Никто не станет звонить и уточнять — просто построит маршрут к соседям.
           </p>
         </article>
 
-        <article class="card card-problem reveal">
+        <article class="card reveal">
           <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12Z"></path>
             </svg>
           </span>
           <h3>Отзыв без ответа читают все</h3>
           <p>
             Один неотвеченный негатив видят сотни людей, и каждый достраивает картину сам.
-            Спокойный ответ владельца работает лучше, чем десять хороших отзывов.
+            Спокойный ответ от лица бизнеса меняет впечатление сильнее, чем десять хороших отзывов.
           </p>
         </article>
       </div>
-
-      <p class="callout reveal">
-        Хорошая новость: почти всё это чинится за пару недель — и без бюджета на рекламу.
-      </p>
     </div>
   </section>
 
-  <!-- ============ УСЛУГИ ============ -->
-  <section class="section section-services" id="services">
+  <!-- ============ ЭКСПРЕСС-ПРОВЕРКА ============ -->
+  <section class="section section-check" id="check">
     <div class="container">
       <header class="section-head">
-        <p class="section-tag reveal">Услуги</p>
-        <h2 class="reveal">Три шага. Первый — карты</h2>
+        <p class="section-tag reveal">Экспресс-проверка</p>
+        <h2 class="reveal">Посмотрите на свою карточку за минуту</h2>
         <p class="section-sub reveal">
-          Не нужно заказывать всё сразу. Мы идём лестницей: сначала приводим в порядок то,
-          что видят каждый день, потом — то, что делает вас узнаваемыми.
+          Отметьте, что у вас уже есть. Оценка считается прямо в браузере,
+          никуда не отправляется и ни к чему не обязывает.
         </p>
       </header>
 
-      <ol class="phases">
-        <li class="phase phase-primary reveal">
-          <span class="phase-badge">С этого начинаем</span>
-          <div class="phase-head">
-            <span class="phase-num" aria-hidden="true">01</span>
-            <div>
-              <h3>Карты: Яндекс Карты и 2ГИС</h3>
-              <p class="phase-lead">
-                Основной фокус сейчас. Карточка — это ваша витрина, которую видят
-                в момент выбора. Приводим её в рабочее состояние и ведём дальше.
-              </p>
-            </div>
-          </div>
-          <ul class="phase-list">
-            <li>Проверяем и забираем карточку под ваш контроль, если доступ потерян</li>
-            <li>Заполняем всё: категории, описание, режим работы, цены, ссылки, особенности</li>
-            <li>Снимаем и подбираем фото: зал, витрина, напитки, фасад при нормальном свете</li>
-            <li>Публикуем меню с ценами прямо в карточке</li>
-            <li>Отвечаем на отзывы — на все, спокойно и от лица заведения</li>
-            <li>Ведём карточку дальше: акции, сезон, новые фото, отчёт раз в месяц</li>
-          </ul>
-          <a class="btn btn-primary phase-cta" href="#contact">Начать с бесплатного аудита</a>
-        </li>
+      <div class="check-layout reveal">
+        <form class="check-form" id="checkForm">
+          <fieldset class="check-group">
+            <legend><span class="check-dot"></span>Информация</legend>
+            <label class="check-item">
+              <input type="checkbox" id="chk-info-1" data-group="info">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Режим работы, адрес и телефон актуальны</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="chk-info-2" data-group="info">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Внутри карточки есть услуги или товары с ценами</span>
+            </label>
+          </fieldset>
 
-        <li class="phase reveal">
-          <span class="phase-badge phase-badge-muted">Следующий шаг</span>
-          <div class="phase-head">
-            <span class="phase-num" aria-hidden="true">02</span>
-            <div>
-              <h3>Визуальный бренд</h3>
-              <p class="phase-lead">
-                Когда карточка работает, появляется вопрос: а как мы выглядим,
-                когда нас уже нашли и держат стакан в руке.
-              </p>
-            </div>
-          </div>
-          <ul class="phase-list">
-            <li>Логотип и знак, который читается на стакане и на вывеске</li>
-            <li>Фирменные цвета, шрифты, простые правила — чтобы не спорить каждый раз</li>
-            <li>Дизайн меню: печатное, доска, экран, версия для карт</li>
-            <li>Упаковка: стаканы, наклейки, крафт-пакеты, ценники</li>
-            <li>Шаблоны для соцсетей, чтобы вы могли делать посты сами</li>
-          </ul>
-        </li>
+          <fieldset class="check-group">
+            <legend><span class="check-dot"></span>Фото</legend>
+            <label class="check-item">
+              <input type="checkbox" id="chk-photo-1" data-group="photo">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Больше десяти фотографий: фасад, внутри, товар или работа</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="chk-photo-2" data-group="photo">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Хотя бы часть фото снята за последние три месяца</span>
+            </label>
+          </fieldset>
 
-        <li class="phase reveal">
-          <span class="phase-badge phase-badge-muted">Когда будете готовы</span>
-          <div class="phase-head">
-            <span class="phase-num" aria-hidden="true">03</span>
-            <div>
-              <h3>Интерьер и экстерьер</h3>
-              <p class="phase-lead">
-                Самый долгий и дорогой шаг, поэтому он последний.
-                Берёмся, когда у заведения уже есть лицо и понятно, для кого оно.
-              </p>
+          <fieldset class="check-group">
+            <legend><span class="check-dot"></span>Отзывы</legend>
+            <label class="check-item">
+              <input type="checkbox" id="chk-review-1" data-group="review">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Отвечено на все отзывы за последние полгода</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="chk-review-2" data-group="review">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Рейтинг выше 4,5 и держится</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="check-group">
+            <legend><span class="check-dot"></span>Активность</legend>
+            <label class="check-item">
+              <input type="checkbox" id="chk-live-1" data-group="live">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Есть описание и правильно выбраны категории</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="chk-live-2" data-group="live">
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">Карточку обновляли в этом квартале: акции, новости, фото</span>
+            </label>
+          </fieldset>
+        </form>
+
+        <div class="check-result" id="checkResult">
+          <figure class="gauge-figure">
+            <figcaption class="gauge-caption">Оценка по нашей шкале</figcaption>
+            <svg class="gauge" viewBox="0 0 180 180" role="img" aria-labelledby="gaugeTitle">
+              <title id="gaugeTitle">Кольцевая шкала оценки карточки</title>
+              <circle class="gauge-track" cx="90" cy="90" r="70" fill="none" stroke-width="14"></circle>
+              <circle class="gauge-value" id="gaugeValue" cx="90" cy="90" r="70" fill="none"
+                      stroke-width="14" stroke-linecap="round"
+                      transform="rotate(-90 90 90)"></circle>
+            </svg>
+            <div class="gauge-center">
+              <span class="gauge-num" id="gaugeNum">0</span>
+              <span class="gauge-of">из 100</span>
+            </div>
+          </figure>
+
+          <p class="gauge-verdict" id="gaugeVerdict">Отметьте пункты слева — посчитаем</p>
+
+          <div class="bars" id="bars">
+            <div class="bar-row" title="Режим работы и контакты · услуги и цены">
+              <span class="bar-label">Информация</span>
+              <span class="bar-track"><span class="bar-fill" data-bar="info"></span></span>
+              <span class="bar-value" data-value="info">0%</span>
+            </div>
+            <div class="bar-row" title="Количество фотографий · свежесть съёмки">
+              <span class="bar-label">Фото</span>
+              <span class="bar-track"><span class="bar-fill" data-bar="photo"></span></span>
+              <span class="bar-value" data-value="photo">0%</span>
+            </div>
+            <div class="bar-row" title="Ответы на отзывы · уровень рейтинга">
+              <span class="bar-label">Отзывы</span>
+              <span class="bar-track"><span class="bar-fill" data-bar="review"></span></span>
+              <span class="bar-value" data-value="review">0%</span>
+            </div>
+            <div class="bar-row" title="Описание и категории · обновления карточки">
+              <span class="bar-label">Активность</span>
+              <span class="bar-track"><span class="bar-fill" data-bar="live"></span></span>
+              <span class="bar-value" data-value="live">0%</span>
             </div>
           </div>
-          <ul class="phase-list">
-            <li>Концепция зала: зонирование, свет, материалы, мебель</li>
-            <li>Вывеска и входная группа — то, что видно с улицы и в согласовании</li>
-            <li>Навигация внутри: указатели, таблички, витрина</li>
-            <li>Подбор подрядчиков и сопровождение, чтобы сделали как на картинке</li>
+
+          <p class="sr-only" id="checkSummary" role="status" aria-live="polite"></p>
+
+          <p class="check-note">
+            Это наша шкала — быстрая прикидка по восьми пунктам, которые чаще всего решают исход.
+            В полном аудите мы смотрим ещё и на то, как выглядят конкуренты рядом с вами.
+          </p>
+
+          <a class="btn btn-primary btn-block" href="#contact" id="checkCta">Разобрать карточку подробно</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ЧТО ДЕЛАЕМ ============ -->
+  <section class="section section-alt" id="services">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-tag reveal">Что делаем</p>
+        <h2 class="reveal">Одна услуга — карточки на картах. И мы делаем её целиком</h2>
+        <p class="section-sub reveal">
+          Не «ведение соцсетей, а карточка в подарок». Карточка — это всё, чем мы занимаемся,
+          от первого захода в личный кабинет до ответов на отзывы через год.
+        </p>
+      </header>
+
+      <div class="cards cards-2">
+        <article class="card card-service reveal">
+          <span class="card-num" aria-hidden="true">01</span>
+          <h3>Запуск и оформление</h3>
+          <ul class="ticks">
+            <li>Находим карточку, подтверждаем права, возвращаем доступ, если он потерян</li>
+            <li>Категории и описание — так, чтобы вас находили по тому, что вы правда делаете</li>
+            <li>Режим работы, контакты, ссылки, вход, парковка, доставка, особенности</li>
+            <li>Услуги и товары с ценами прямо внутри карточки</li>
           </ul>
-        </li>
-      </ol>
+        </article>
+
+        <article class="card card-service reveal">
+          <span class="card-num" aria-hidden="true">02</span>
+          <h3>Фото и визуал</h3>
+          <ul class="ticks">
+            <li>Приезжаем и снимаем: фасад, вход, зал, товар, процесс работы</li>
+            <li>Обрабатываем и раскладываем так, чтобы первые кадры продавали</li>
+            <li>Убираем чужие и устаревшие фото, где это возможно</li>
+            <li>Обновляем съёмку по сезону и после ремонта</li>
+          </ul>
+        </article>
+
+        <article class="card card-service reveal">
+          <span class="card-num" aria-hidden="true">03</span>
+          <h3>Отзывы и репутация</h3>
+          <ul class="ticks">
+            <li>Отвечаем на все отзывы от лица бизнеса — спокойно и по делу</li>
+            <li>Разбираем негатив: что ответить публично, что чинить внутри</li>
+            <li>Помогаем выстроить поток честных отзывов от довольных клиентов</li>
+            <li>Следим за новыми — вы узнаёте о проблеме не через месяц</li>
+          </ul>
+        </article>
+
+        <article class="card card-service reveal">
+          <span class="card-num" aria-hidden="true">04</span>
+          <h3>Ведение</h3>
+          <ul class="ticks">
+            <li>Акции, сезонные предложения, изменения в работе — вовремя на карте</li>
+            <li>Следим за модерацией: если карточку «срезали», возвращаем</li>
+            <li>Смотрим, что делают конкуренты рядом, и подтягиваем вас</li>
+            <li>Отчёт раз в месяц человеческим языком, без графиков ради графиков</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КОМУ ПОДХОДИТ ============ -->
+  <section class="section" id="who">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-tag reveal">Кому подходит</p>
+        <h2 class="reveal">Любому бизнесу, к которому клиент приходит ногами</h2>
+        <p class="section-sub reveal">
+          Если у вас есть адрес и вас можно найти на карте — карточка уже работает.
+          Вопрос только в том, на вас она работает или на соседа.
+        </p>
+      </header>
+
+      <ul class="who-grid">
+        <li class="who-item reveal">Магазины и шоурумы</li>
+        <li class="who-item reveal">Салоны красоты и барбершопы</li>
+        <li class="who-item reveal">Стоматологии и клиники</li>
+        <li class="who-item reveal">Автосервисы и шиномонтаж</li>
+        <li class="who-item reveal">Кафе, бары, кофейни</li>
+        <li class="who-item reveal">Фитнес и студии</li>
+        <li class="who-item reveal">Пункты выдачи и склады</li>
+        <li class="who-item reveal">Сервисные центры и мастерские</li>
+        <li class="who-item reveal">Детские центры и школы</li>
+        <li class="who-item reveal">Ветклиники и зоомагазины</li>
+        <li class="who-item reveal">Юристы, бухгалтеры, агентства</li>
+        <li class="who-item reveal">Гостиницы и хостелы</li>
+      </ul>
     </div>
   </section>
 
   <!-- ============ КАК РАБОТАЕМ ============ -->
-  <section class="section section-process" id="process">
+  <section class="section section-alt" id="process">
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Как мы работаем</p>
@@ -269,8 +414,8 @@
           <div class="step-body">
             <h3>Бесплатный аудит</h3>
             <p>
-              Присылаете ссылку на карточку или просто название кафе.
-              Мы смотрим на неё глазами человека, который выбирает, куда пойти за кофе.
+              Присылаете ссылку на карточку или просто название и адрес.
+              Мы смотрим на неё глазами человека, который прямо сейчас выбирает, куда поехать.
             </p>
           </div>
         </li>
@@ -279,8 +424,8 @@
           <div class="step-body">
             <h3>Показываем, что теряется</h3>
             <p>
-              Конкретный список без воды: не хватает фото зала, семь отзывов без ответа,
-              не указана веранда, кофейня в двухстах метрах выглядит сильнее — и вот почему.
+              Конкретный список без воды: нет фото внутри, семь отзывов без ответа,
+              не указаны услуги, соседняя точка выглядит сильнее — и вот чем именно.
             </p>
           </div>
         </li>
@@ -289,7 +434,7 @@
           <div class="step-body">
             <h3>Предлагаем решение и цену</h3>
             <p>
-              Что делаем в первый месяц, сколько это стоит и что вы получите на выходе.
+              Что делаем в первый месяц, сколько это стоит, что вы получите на выходе.
               Без пакетов «премиум» и звёздочек мелким шрифтом.
             </p>
           </div>
@@ -299,8 +444,8 @@
           <div class="step-body">
             <h3>Ведём дальше</h3>
             <p>
-              Карточка — не разовая работа. Приходят новые отзывы, меняется меню и сезон.
-              Мы держим это в порядке, а вы занимаетесь кофе.
+              Карточка — не разовая работа. Приходят отзывы, меняются цены и сезон,
+              модерация что-то скрывает. Мы держим это в порядке.
             </p>
           </div>
         </li>
@@ -309,7 +454,7 @@
   </section>
 
   <!-- ============ ПОЧЕМУ МЫ ============ -->
-  <section class="section section-why" id="why">
+  <section class="section" id="why">
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Почему мы</p>
@@ -318,36 +463,36 @@
 
       <div class="cards cards-3">
         <article class="card card-why reveal">
-          <span class="card-icon card-icon-accent" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <span class="card-icon icon-lime" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.6"></circle>
             </svg>
           </span>
           <h3>Мы в Екатеринбурге, а не «на удалёнке»</h3>
           <p>
-            Приедем, выпьем у вас кофе, сами сфотографируем зал при нормальном свете
-            и посмотрим на вывеску с той стороны улицы, откуда на неё смотрят люди.
+            Приедем на точку, сами снимем фасад и зал при нормальном свете,
+            посмотрим на вход с той стороны улицы, откуда на него смотрят люди.
             Федеральное агентство сделает это по вашим фото из телефона.
           </p>
         </article>
 
         <article class="card card-why reveal">
-          <span class="card-icon card-icon-accent" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <span class="card-icon icon-cyan" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3.4"></circle><circle cx="12" cy="12" r="0.6" fill="currentColor"></circle>
             </svg>
           </span>
-          <h3>Карты — наша основная услуга, а не довесок</h3>
+          <h3>Карты — единственное, чем мы занимаемся</h3>
           <p>
-            В агентствах полного цикла карточку обычно ведёт стажёр между сторис и рилсами.
-            У нас это первая услуга, с которой всё начинается, — поэтому мы знаем её нюансы
-            и модерацию наизусть.
+            В агентствах полного цикла карточку ведёт стажёр между сторис и рилсами.
+            У нас это не дополнительная услуга, а вся работа целиком — поэтому мы знаем
+            её нюансы и правила модерации наизусть.
           </p>
         </article>
 
         <article class="card card-why reveal">
-          <span class="card-icon card-icon-accent" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <span class="card-icon icon-magenta" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z"></path>
             </svg>
           </span>
@@ -363,22 +508,22 @@
   </section>
 
   <!-- ============ КЕЙСЫ (честно) ============ -->
-  <section class="section section-cases" id="cases">
+  <section class="section section-alt" id="cases">
     <div class="container">
       <div class="cases-box reveal">
         <p class="section-tag">Кейсы</p>
         <h2>Кейсов пока нет — и мы не будем их придумывать</h2>
         <p class="cases-lede">
-          Мы только начали. Можно было бы поставить сюда чужие логотипы и красивые проценты,
-          но вы наверняка видели такое на сайтах, где «клиентов» рисуют в графическом редакторе.
-          Вместо этого — честное предложение.
+          CA&nbsp;Group только начинает. Можно было бы поставить сюда чужие логотипы
+          и красивые проценты, но вы наверняка видели такое на сайтах, где «клиентов»
+          рисуют в графическом редакторе. Вместо этого — честное предложение.
         </p>
 
         <div class="cases-offer">
           <h3>Ищем первых партнёров для пилота</h3>
           <p>
-            Берём несколько кафе и кофеен Екатеринбурга, с которыми пройдём весь путь
-            от карточки до вывески и покажем результат открыто — с цифрами и датами.
+            Берём несколько точек в Екатеринбурге, с которыми пройдём весь путь
+            и покажем результат открыто — с цифрами, датами и скриншотами «до/после».
           </p>
           <ul class="cases-list">
             <li>
@@ -408,35 +553,35 @@
         <h2 class="reveal">Давайте посмотрим на вашу карточку</h2>
         <p class="section-sub reveal">
           Первый аудит — бесплатный и ни к чему не обязывает.
-          Напишите название кафе, и в течение дня пришлём разбор:
-          что видит клиент, чего не хватает и что чинится в первую очередь.
+          Напишите, как вас найти, и в течение дня пришлём разбор: что видит клиент,
+          чего не хватает и что чинится в первую очередь.
         </p>
 
         <div class="contact-buttons reveal">
           <a class="btn btn-messenger btn-tg" href="#" data-contact="telegram" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.4 2.9 10.6c-1.1.4-1.1 1.1-.2 1.4l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.2-.5-1.8-1.1-1.8Zm-3 3.8-8.6 7.8-.3 3.6-1.7-5.2 10.6-6.2Z"/></svg>
-            Написать в Telegram
+            Telegram
           </a>
           <a class="btn btn-messenger btn-wa" href="#" data-contact="whatsapp" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.5-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.2.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l2 1c.3.1.4.2.5.3.1.2.1.5-.1 1Z"/></svg>
-            Написать в WhatsApp
+            WhatsApp
           </a>
         </div>
 
         <p class="contact-alt reveal">
           Или по телефону: <a href="#" data-contact="phone">+7 (900) 000-00-00</a><br>
-          Почта: <a href="#" data-contact="email">hello@navidu.ru</a>
+          Почта: <a href="#" data-contact="email">hello@cagroup.ru</a>
         </p>
 
         <div class="audit-box reveal">
           <h3>Что будет в аудите</h3>
-          <ul class="audit-list">
+          <ul class="ticks">
             <li>Как выглядит ваша карточка рядом с ближайшими конкурентами</li>
             <li>Чего в ней не хватает — по пунктам, а не «надо поработать»</li>
             <li>Отзывы: что висит без ответа и что с этим делать</li>
             <li>С чего начать, если делать всё сразу некогда и не на что</li>
           </ul>
-          <p class="audit-note">Обычно занимает день. Ответим текстом, звонить не будем.</p>
+          <p class="audit-note">Обычно занимает день. Ответим текстом, звонить без предупреждения не будем.</p>
         </div>
       </div>
 
@@ -445,46 +590,22 @@
           <h3 class="form-title">Заявка на бесплатный аудит</h3>
 
           <div class="field">
-            <label for="fName">Как к вам обращаться <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="fName" name="name" autocomplete="name" placeholder="Анна" required>
+            <label for="fName">Имя</label>
+            <input type="text" id="fName" name="name" autocomplete="name" placeholder="Как к вам обращаться" required>
             <p class="field-error" data-error-for="fName"></p>
           </div>
 
           <div class="field">
-            <label for="fPlace">Название заведения <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="fPlace" name="place" placeholder="Кофейня «Полка», Ленина 52" required>
+            <label for="fPlace">Как найти ваше заведение</label>
+            <input type="text" id="fPlace" name="place" placeholder="Название и адрес или ссылка на карточку" required>
             <p class="field-error" data-error-for="fPlace"></p>
           </div>
 
           <div class="field">
-            <label for="fContact">Телефон или ник в Telegram <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="fContact" name="contact" placeholder="+7 900 000-00-00 или @nickname" required>
+            <label for="fContact">Способ связи</label>
+            <input type="text" id="fContact" name="contact" placeholder="Телефон, @ник в Telegram или WhatsApp" required>
             <p class="field-error" data-error-for="fContact"></p>
           </div>
-
-          <div class="field">
-            <label for="fLink">Ссылка на карточку <span class="opt">— если есть под рукой</span></label>
-            <input type="text" id="fLink" name="link" inputmode="url" placeholder="yandex.ru/maps/... или 2gis.ru/...">
-          </div>
-
-          <div class="field">
-            <label for="fComment">Что беспокоит <span class="opt">— необязательно</span></label>
-            <textarea id="fComment" name="comment" rows="3" placeholder="Например: висит плохой отзыв, а мы не знаем, что ответить"></textarea>
-          </div>
-
-          <fieldset class="field field-choice">
-            <legend>Куда удобнее ответить</legend>
-            <div class="choice-row">
-              <label class="choice">
-                <input type="radio" name="channel" value="telegram" checked>
-                <span>Telegram</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="channel" value="whatsapp">
-                <span>WhatsApp</span>
-              </label>
-            </div>
-          </fieldset>
 
           <button class="btn btn-primary btn-lg btn-block" type="submit">Отправить заявку</button>
 
@@ -504,16 +625,16 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <span class="brand-text">На&nbsp;виду</span>
+      <span class="brand-text">CA&nbsp;Group</span>
       <p>
-        Отвечаем за то, как ваш бизнес выглядит везде, где его видит клиент —
-        от карточки на картах до вывески у входа.
+        Оформляем и ведём карточки бизнеса в Яндекс Картах и 2ГИС.
+        Отвечаем за то, как вас видят там, где вас ищут.
       </p>
     </div>
     <nav class="footer-nav" aria-label="Навигация в подвале">
-      <a href="#services">Услуги</a>
-      <a href="#process">Как работаем</a>
-      <a href="#cases">Пилот</a>
+      <a href="#check">Проверка</a>
+      <a href="#services">Что делаем</a>
+      <a href="#who">Кому подходит</a>
       <a href="#contact">Контакты</a>
     </nav>
     <p class="footer-meta">
@@ -524,7 +645,6 @@
   </div>
 </footer>
 
-<!-- Липкая кнопка для телефона -->
 <div class="mobile-cta" id="mobileCta" hidden>
   <a class="btn btn-primary btn-block" href="#contact">Бесплатный аудит карточки</a>
 </div>
