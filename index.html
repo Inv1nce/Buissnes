@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CA Group — карточки бизнеса в Яндекс Картах и 2ГИС, Екатеринбург</title>
 <meta name="description" content="Оформляем и ведём карточки бизнеса в Яндекс Картах и 2ГИС. Магазины, салоны, клиники, автосервисы, кафе — любая точка на карте. Екатеринбург. Первый аудит бесплатно.">
-<meta name="theme-color" content="#070B16">
+<meta name="theme-color" content="#F6EFE1">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="CA Group — вас выбирают на карте">
@@ -13,34 +13,52 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Golos+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Golos+Text:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Перейти к содержимому</a>
 
+<!-- ================= ЛОГОТИП: бутылка с картой ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="icon-bottle" viewBox="0 0 40 56">
+    <!-- пробка -->
+    <rect x="15" y="1.5" width="10" height="8" rx="2" fill="#A9713C"/>
+    <rect x="15" y="1.5" width="10" height="3" rx="1.5" fill="#C08A4F"/>
+    <!-- горлышко и корпус -->
+    <path d="M16.5 9.5h7v6.2c0 1.4.5 2.3 1.6 3.4 2.9 2.9 4.4 6 4.4 10.3v19.4c0 3.4-2.4 5.7-5.8 5.7H16.3c-3.4 0-5.8-2.3-5.8-5.7V29.4c0-4.3 1.5-7.4 4.4-10.3 1.1-1.1 1.6-2 1.6-3.4V9.5Z"
+          fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/>
+    <!-- свёрток карты внутри -->
+    <rect x="14.2" y="27" width="11.6" height="17" rx="2.2" fill="#F4E9D2" stroke="#8C6A44" stroke-width="1.4"/>
+    <path d="M17 31.5h6M17 35h6" stroke="#B79B76" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="m18.4 38.4 3.2 3.2m0-3.2-3.2 3.2" stroke="#C42B1F" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- блик на стекле -->
+    <path d="M14 22.5c-1.2 2-1.8 4.2-1.8 6.6v13" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a class="brand" href="#top" aria-label="CA Group — на главную">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"></path>
-          <circle cx="12" cy="10" r="2.6"></circle>
-        </svg>
-      </span>
+      <span class="brand-mark" aria-hidden="true"><svg><use href="#icon-bottle"></use></svg></span>
       <span class="brand-text">CA&nbsp;Group</span>
     </a>
 
     <nav class="nav" id="nav" aria-label="Основная навигация">
       <ul class="nav-list">
-        <li><a href="#check">Проверка карточки</a></li>
         <li><a href="#services">Что делаем</a></li>
         <li><a href="#who">Кому подходит</a></li>
         <li><a href="#process">Как работаем</a></li>
+        <li><a href="#why">Почему мы</a></li>
         <li><a href="#contact">Контакты</a></li>
       </ul>
     </nav>
+
+    <button class="motion-toggle" id="motionToggle" type="button" hidden aria-pressed="false">
+      <span class="motion-dot" aria-hidden="true"></span>
+      <span class="motion-label">Анимация</span>
+    </button>
 
     <a class="btn btn-primary btn-sm header-cta" href="#contact">Бесплатный аудит</a>
 
@@ -56,17 +74,16 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="top">
-    <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-    <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+    <div class="hero-paper" aria-hidden="true"></div>
 
     <div class="container hero-inner">
-      <div class="hero-copy">
+      <div class="hero-copy" data-parrot="hero">
         <p class="eyebrow">
-          <span class="pulse" aria-hidden="true"></span>
+          <span class="eyebrow-pin" aria-hidden="true"></span>
           Екатеринбург · Яндекс Карты и 2ГИС
         </p>
 
-        <h1>Вас выбирают <span class="grad">на&nbsp;карте</span> — ещё до первого звонка</h1>
+        <h1>Вас выбирают <span class="accent">на&nbsp;карте</span> — ещё до первого звонка</h1>
 
         <p class="lede">
           CA&nbsp;Group оформляет и ведёт карточки бизнеса в Яндекс Картах и 2ГИС.
@@ -76,7 +93,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary btn-lg" href="#contact">Бесплатный аудит карточки</a>
-          <a class="btn btn-ghost btn-lg" href="#check">Проверить за минуту</a>
+          <a class="btn btn-ghost btn-lg" href="#services">Что мы делаем</a>
         </div>
 
         <p class="hero-note">
@@ -117,7 +134,6 @@
       </div>
     </div>
 
-    <!-- бегущая строка: кого мы ведём -->
     <div class="marquee" id="marquee" aria-hidden="true">
       <div class="marquee-track">
         <span>Магазины</span><i></i><span>Салоны красоты</span><i></i><span>Стоматологии</span><i></i>
@@ -130,11 +146,11 @@
   </section>
 
   <!-- ============ ПРОБЛЕМА ============ -->
-  <section class="section section-alt" id="problem">
+  <section class="section" id="problem" data-route>
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Что происходит без вас</p>
-        <h2 class="reveal">Решение принимается <span class="grad">за полминуты</span>, прямо в карте</h2>
+        <h2 class="reveal">Решение принимается <span class="accent">за полминуты</span>, прямо в карте</h2>
         <p class="section-sub reveal">
           Клиент не ищет именно вас. Он открывает карту, видит рядом пять-семь точек
           и выбирает. Вы уже участвуете в этом сравнении — даже если никогда не занимались карточкой.
@@ -185,145 +201,12 @@
     </div>
   </section>
 
-  <!-- ============ ЭКСПРЕСС-ПРОВЕРКА ============ -->
-  <section class="section section-check" id="check">
-    <div class="aurora" aria-hidden="true"><span class="a2"></span><span class="a3"></span></div>
-    <div class="container">
-      <header class="section-head">
-        <p class="section-tag reveal">Экспресс-проверка</p>
-        <h2 class="reveal">Посмотрите на свою карточку <span class="grad">за минуту</span></h2>
-        <p class="section-sub reveal">
-          Отметьте, что у вас уже есть. Оценка считается прямо в браузере,
-          никуда не отправляется и ни к чему не обязывает.
-        </p>
-      </header>
-
-      <div class="check-layout reveal">
-        <form class="check-form" id="checkForm">
-          <fieldset class="check-group">
-            <legend><span class="check-dot"></span>Информация</legend>
-            <label class="check-item">
-              <input type="checkbox" id="chk-info-1" data-group="info">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Режим работы, адрес и телефон актуальны</span>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="chk-info-2" data-group="info">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Внутри карточки есть услуги или товары с ценами</span>
-            </label>
-          </fieldset>
-
-          <fieldset class="check-group">
-            <legend><span class="check-dot"></span>Фото</legend>
-            <label class="check-item">
-              <input type="checkbox" id="chk-photo-1" data-group="photo">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Больше десяти фотографий: фасад, внутри, товар или работа</span>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="chk-photo-2" data-group="photo">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Хотя бы часть фото снята за последние три месяца</span>
-            </label>
-          </fieldset>
-
-          <fieldset class="check-group">
-            <legend><span class="check-dot"></span>Отзывы</legend>
-            <label class="check-item">
-              <input type="checkbox" id="chk-review-1" data-group="review">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Отвечено на все отзывы за последние полгода</span>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="chk-review-2" data-group="review">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Рейтинг выше 4,5 и держится</span>
-            </label>
-          </fieldset>
-
-          <fieldset class="check-group">
-            <legend><span class="check-dot"></span>Активность</legend>
-            <label class="check-item">
-              <input type="checkbox" id="chk-live-1" data-group="live">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Есть описание и правильно выбраны категории</span>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="chk-live-2" data-group="live">
-              <span class="check-box" aria-hidden="true"></span>
-              <span class="check-text">Карточку обновляли в этом квартале: акции, новости, фото</span>
-            </label>
-          </fieldset>
-        </form>
-
-        <div class="check-result" id="checkResult">
-          <figure class="gauge-figure">
-            <figcaption class="gauge-caption">Оценка по нашей шкале</figcaption>
-            <svg class="gauge" viewBox="0 0 180 180" role="img" aria-labelledby="gaugeTitle">
-              <title id="gaugeTitle">Кольцевая шкала оценки карточки</title>
-              <defs>
-                <linearGradient id="gaugeGradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#C4F82A"></stop>
-                  <stop offset="55%" stop-color="#35E0FF"></stop>
-                  <stop offset="100%" stop-color="#FF3D8B"></stop>
-                </linearGradient>
-              </defs>
-              <circle class="gauge-track" cx="90" cy="90" r="70" fill="none" stroke-width="14"></circle>
-              <circle class="gauge-value" id="gaugeValue" cx="90" cy="90" r="70" fill="none"
-                      stroke-width="14" stroke-linecap="round"
-                      transform="rotate(-90 90 90)"></circle>
-            </svg>
-            <div class="gauge-center">
-              <span class="gauge-num" id="gaugeNum">0</span>
-              <span class="gauge-of">из 100</span>
-            </div>
-          </figure>
-
-          <p class="gauge-verdict" id="gaugeVerdict">Отметьте пункты слева — посчитаем</p>
-
-          <div class="bars" id="bars">
-            <div class="bar-row" title="Режим работы и контакты · услуги и цены">
-              <span class="bar-label">Информация</span>
-              <span class="bar-track"><span class="bar-fill" data-bar="info"></span></span>
-              <span class="bar-value" data-value="info">0%</span>
-            </div>
-            <div class="bar-row" title="Количество фотографий · свежесть съёмки">
-              <span class="bar-label">Фото</span>
-              <span class="bar-track"><span class="bar-fill" data-bar="photo"></span></span>
-              <span class="bar-value" data-value="photo">0%</span>
-            </div>
-            <div class="bar-row" title="Ответы на отзывы · уровень рейтинга">
-              <span class="bar-label">Отзывы</span>
-              <span class="bar-track"><span class="bar-fill" data-bar="review"></span></span>
-              <span class="bar-value" data-value="review">0%</span>
-            </div>
-            <div class="bar-row" title="Описание и категории · обновления карточки">
-              <span class="bar-label">Активность</span>
-              <span class="bar-track"><span class="bar-fill" data-bar="live"></span></span>
-              <span class="bar-value" data-value="live">0%</span>
-            </div>
-          </div>
-
-          <p class="sr-only" id="checkSummary" role="status" aria-live="polite"></p>
-
-          <p class="check-note">
-            Это наша шкала — быстрая прикидка по восьми пунктам, которые чаще всего решают исход.
-            В полном аудите мы смотрим ещё и на то, как выглядят конкуренты рядом с вами.
-          </p>
-
-          <a class="btn btn-primary btn-block" href="#contact" id="checkCta">Разобрать карточку подробно</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ ЧТО ДЕЛАЕМ ============ -->
-  <section class="section section-alt" id="services">
+  <section class="section section-alt" id="services" data-route>
     <div class="container">
-      <header class="section-head">
+      <header class="section-head" data-parrot="services">
         <p class="section-tag reveal">Что делаем</p>
-        <h2 class="reveal">Одна услуга — карточки на картах. И мы делаем её <span class="grad">целиком</span></h2>
+        <h2 class="reveal">Одна услуга — карточки на картах. И мы делаем её <span class="accent">целиком</span></h2>
         <p class="section-sub reveal">
           Не «ведение соцсетей, а карточка в подарок». Карточка — это всё, чем мы занимаемся,
           от первого захода в личный кабинет до ответов на отзывы через год.
@@ -379,11 +262,11 @@
   </section>
 
   <!-- ============ КОМУ ПОДХОДИТ ============ -->
-  <section class="section" id="who">
+  <section class="section" id="who" data-route>
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Кому подходит</p>
-        <h2 class="reveal">Любому бизнесу, к которому клиент <span class="grad">приходит ногами</span></h2>
+        <h2 class="reveal">Любому бизнесу, к которому клиент <span class="accent">приходит ногами</span></h2>
         <p class="section-sub reveal">
           Если у вас есть адрес и вас можно найти на карте — карточка уже работает.
           Вопрос только в том, на вас она работает или на соседа.
@@ -408,7 +291,7 @@
   </section>
 
   <!-- ============ КАК РАБОТАЕМ ============ -->
-  <section class="section section-alt" id="process">
+  <section class="section section-alt" id="process" data-route>
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Как мы работаем</p>
@@ -461,16 +344,16 @@
   </section>
 
   <!-- ============ ПОЧЕМУ МЫ ============ -->
-  <section class="section" id="why">
+  <section class="section" id="why" data-route>
     <div class="container">
-      <header class="section-head">
+      <header class="section-head" data-parrot="why">
         <p class="section-tag reveal">Почему мы</p>
         <h2 class="reveal">Три причины выбрать нас, а не подрядчика из чата</h2>
       </header>
 
       <div class="cards cards-3">
         <article class="card card-why reveal">
-          <span class="card-icon icon-lime" aria-hidden="true">
+          <span class="card-icon icon-red" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.6"></circle>
             </svg>
@@ -484,7 +367,7 @@
         </article>
 
         <article class="card card-why reveal">
-          <span class="card-icon icon-cyan" aria-hidden="true">
+          <span class="card-icon icon-teal" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3.4"></circle><circle cx="12" cy="12" r="0.6" fill="currentColor"></circle>
             </svg>
@@ -498,7 +381,7 @@
         </article>
 
         <article class="card card-why reveal">
-          <span class="card-icon icon-magenta" aria-hidden="true">
+          <span class="card-icon icon-gold" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z"></path>
             </svg>
@@ -515,7 +398,7 @@
   </section>
 
   <!-- ============ КЕЙСЫ (честно) ============ -->
-  <section class="section section-alt" id="cases">
+  <section class="section section-alt" id="cases" data-route>
     <div class="container">
       <div class="cases-box reveal">
         <p class="section-tag">Кейсы</p>
@@ -553,12 +436,11 @@
   </section>
 
   <!-- ============ КОНТАКТЫ ============ -->
-  <section class="section section-contact" id="contact">
-    <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+  <section class="section section-contact" id="contact" data-route-end>
     <div class="container contact-inner">
       <div class="contact-copy">
         <p class="section-tag reveal">Контакты</p>
-        <h2 class="reveal">Давайте посмотрим на <span class="grad">вашу карточку</span></h2>
+        <h2 class="reveal">Давайте посмотрим на <span class="accent">вашу карточку</span></h2>
         <p class="section-sub reveal">
           Первый аудит — бесплатный и ни к чему не обязывает.
           Напишите, как вас найти, и в течение дня пришлём разбор: что видит клиент,
@@ -593,7 +475,7 @@
         </div>
       </div>
 
-      <div class="contact-form-wrap reveal">
+      <div class="contact-form-wrap reveal" id="formCard">
         <form class="contact-form" id="auditForm" novalidate>
           <h3 class="form-title">Заявка на бесплатный аудит</h3>
 
@@ -640,9 +522,9 @@
       </p>
     </div>
     <nav class="footer-nav" aria-label="Навигация в подвале">
-      <a href="#check">Проверка</a>
       <a href="#services">Что делаем</a>
       <a href="#who">Кому подходит</a>
+      <a href="#process">Как работаем</a>
       <a href="#contact">Контакты</a>
     </nav>
     <p class="footer-meta">
@@ -652,6 +534,42 @@
     </p>
   </div>
 </footer>
+
+<!-- ============ МАРШРУТ И ПОПУГАЙ ============ -->
+<div class="route-layer" id="routeLayer" aria-hidden="true">
+  <svg class="route-svg" id="routeSvg" preserveAspectRatio="none">
+    <defs>
+      <mask id="routeReveal" maskUnits="userSpaceOnUse">
+        <path id="routeMaskPath" fill="none" stroke="#fff" stroke-width="40"
+              stroke-linecap="round" stroke-linejoin="round" pathLength="1"
+              stroke-dasharray="1" stroke-dashoffset="1"></path>
+      </mask>
+    </defs>
+    <path id="routeGhost" class="route-ghost" fill="none"></path>
+    <path id="routePath" class="route-path" fill="none" mask="url(#routeReveal)"></path>
+  </svg>
+
+  <span class="route-x" id="routeX">
+    <svg viewBox="0 0 34 34" aria-hidden="true">
+      <path d="M7 7 27 27M27 7 7 27" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
+    </svg>
+  </span>
+
+  <!-- Временный попугай. Заменить на присланную картинку: см. README -->
+  <span class="parrot" id="parrot">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path class="parrot-tail" d="M22 36 3 55c6 1 12-1 17-6l6-6Z" fill="#1F6F5C"/>
+      <ellipse class="parrot-body" cx="31" cy="34" rx="14" ry="11.5" transform="rotate(-22 31 34)" fill="#C42B1F"/>
+      <circle class="parrot-head" cx="43" cy="21" r="9.4" fill="#C42B1F"/>
+      <path class="parrot-crest" d="M41 12c1-4 4-6 7-6-2 2-2 4-1 6l-6 .5Z" fill="#E0A020"/>
+      <path class="parrot-beak" d="M51.5 18c4 .3 6.5 2.4 6.5 4.6 0 2.4-2.7 4.4-6 4.4 1.4-2 1.6-5.6-.5-9Z" fill="#E0A020"/>
+      <circle cx="46" cy="19.4" r="2.4" fill="#FDF8EC"/>
+      <circle cx="46.4" cy="19.4" r="1.3" fill="#2B2119"/>
+      <path class="parrot-foot" d="M31 45v5M27 45v5" stroke="#A9713C" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse class="parrot-wing" cx="29" cy="31" rx="11" ry="6.4" fill="#1F6F5C"/>
+    </svg>
+  </span>
+</div>
 
 <div class="mobile-cta" id="mobileCta" hidden>
   <a class="btn btn-primary btn-block" href="#contact">Бесплатный аудит карточки</a>
