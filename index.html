@@ -57,8 +57,7 @@
   <!-- ============ HERO ============ -->
   <section class="hero" id="top">
     <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+    <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
 
     <div class="container hero-inner">
       <div class="hero-copy">
@@ -67,7 +66,7 @@
           Екатеринбург · Яндекс Карты и 2ГИС
         </p>
 
-        <h1>Вас выбирают на&nbsp;карте — ещё до первого звонка</h1>
+        <h1>Вас выбирают <span class="grad">на&nbsp;карте</span> — ещё до первого звонка</h1>
 
         <p class="lede">
           CA&nbsp;Group оформляет и ведёт карточки бизнеса в Яндекс Картах и 2ГИС.
@@ -135,7 +134,7 @@
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Что происходит без вас</p>
-        <h2 class="reveal">Решение принимается за полминуты, прямо в карте</h2>
+        <h2 class="reveal">Решение принимается <span class="grad">за полминуты</span>, прямо в карте</h2>
         <p class="section-sub reveal">
           Клиент не ищет именно вас. Он открывает карту, видит рядом пять-семь точек
           и выбирает. Вы уже участвуете в этом сравнении — даже если никогда не занимались карточкой.
@@ -188,10 +187,11 @@
 
   <!-- ============ ЭКСПРЕСС-ПРОВЕРКА ============ -->
   <section class="section section-check" id="check">
+    <div class="aurora" aria-hidden="true"><span class="a2"></span><span class="a3"></span></div>
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Экспресс-проверка</p>
-        <h2 class="reveal">Посмотрите на свою карточку за минуту</h2>
+        <h2 class="reveal">Посмотрите на свою карточку <span class="grad">за минуту</span></h2>
         <p class="section-sub reveal">
           Отметьте, что у вас уже есть. Оценка считается прямо в браузере,
           никуда не отправляется и ни к чему не обязывает.
@@ -262,6 +262,13 @@
             <figcaption class="gauge-caption">Оценка по нашей шкале</figcaption>
             <svg class="gauge" viewBox="0 0 180 180" role="img" aria-labelledby="gaugeTitle">
               <title id="gaugeTitle">Кольцевая шкала оценки карточки</title>
+              <defs>
+                <linearGradient id="gaugeGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#C4F82A"></stop>
+                  <stop offset="55%" stop-color="#35E0FF"></stop>
+                  <stop offset="100%" stop-color="#FF3D8B"></stop>
+                </linearGradient>
+              </defs>
               <circle class="gauge-track" cx="90" cy="90" r="70" fill="none" stroke-width="14"></circle>
               <circle class="gauge-value" id="gaugeValue" cx="90" cy="90" r="70" fill="none"
                       stroke-width="14" stroke-linecap="round"
@@ -316,7 +323,7 @@
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Что делаем</p>
-        <h2 class="reveal">Одна услуга — карточки на картах. И мы делаем её целиком</h2>
+        <h2 class="reveal">Одна услуга — карточки на картах. И мы делаем её <span class="grad">целиком</span></h2>
         <p class="section-sub reveal">
           Не «ведение соцсетей, а карточка в подарок». Карточка — это всё, чем мы занимаемся,
           от первого захода в личный кабинет до ответов на отзывы через год.
@@ -376,7 +383,7 @@
     <div class="container">
       <header class="section-head">
         <p class="section-tag reveal">Кому подходит</p>
-        <h2 class="reveal">Любому бизнесу, к которому клиент приходит ногами</h2>
+        <h2 class="reveal">Любому бизнесу, к которому клиент <span class="grad">приходит ногами</span></h2>
         <p class="section-sub reveal">
           Если у вас есть адрес и вас можно найти на карте — карточка уже работает.
           Вопрос только в том, на вас она работает или на соседа.
@@ -547,10 +554,11 @@
 
   <!-- ============ КОНТАКТЫ ============ -->
   <section class="section section-contact" id="contact">
+    <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
     <div class="container contact-inner">
       <div class="contact-copy">
         <p class="section-tag reveal">Контакты</p>
-        <h2 class="reveal">Давайте посмотрим на вашу карточку</h2>
+        <h2 class="reveal">Давайте посмотрим на <span class="grad">вашу карточку</span></h2>
         <p class="section-sub reveal">
           Первый аудит — бесплатный и ни к чему не обязывает.
           Напишите, как вас найти, и в течение дня пришлём разбор: что видит клиент,

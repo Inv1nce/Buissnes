@@ -377,6 +377,7 @@ h3 { font-size: 1.12rem; line-height: 1.25; letter-spacing: -0.01em; }
   height: 100%;
   opacity: .55;
   pointer-events: none;
+  z-index: 0;
 }
 
 .hero-glow {
@@ -401,11 +402,16 @@ h3 { font-size: 1.12rem; line-height: 1.25; letter-spacing: -0.01em; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(7, 11, 22, .9) 0%, rgba(7, 11, 22, .66) 50%, rgba(7, 11, 22, .3) 100%);
+  background: linear-gradient(180deg, rgba(7, 11, 22, .92) 0%, rgba(7, 11, 22, .8) 55%, rgba(7, 11, 22, .42) 100%);
   pointer-events: none;
+  z-index: 1;
 }
 
-.hero-inner { position: relative; z-index: 1; padding-bottom: 46px; }
+/* сияние светит поверх затемнения, но под текстом */
+.hero .aurora { z-index: 2; }
+.hero .aurora span { opacity: .36; }
+
+.hero-inner { position: relative; z-index: 3; padding-bottom: 46px; }
 
 .eyebrow {
   display: inline-flex;
@@ -535,7 +541,7 @@ h3 { font-size: 1.12rem; line-height: 1.25; letter-spacing: -0.01em; }
 /* ---------- Бегущая строка ---------- */
 .marquee {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   overflow: hidden;
   border-block: 1px solid var(--line);
   background: rgba(150, 180, 255, .035);
@@ -978,13 +984,13 @@ h3 { font-size: 1.12rem; line-height: 1.25; letter-spacing: -0.01em; }
 body.has-mobile-cta { padding-bottom: 78px; }
 
 /* ---------- Появление при скролле ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .55s ease, transform .55s ease;
-}
-.reveal.is-in { opacity: 1; transform: none; }
-.no-js .reveal { opacity: 1; transform: none; }
+/* Блоки видны по умолчанию. Прячем только если JS подтвердил, что
+   страница скроллится сама и наблюдатель сработает: иначе во встроенном
+   высоком iframe контент остался бы невидимым навсегда. */
+.reveal { transition: opacity .55s ease, transform .55s ease; }
+
+[data-anim="on"] .reveal { opacity: 0; transform: translateY(16px); }
+[data-anim="on"] .reveal.is-in { opacity: 1; transform: none; }
 
 /* =========================================================
    Планшет
@@ -1136,3 +1142,145 @@ body.has-mobile-cta { padding-bottom: 78px; }
 }
 .no-js .nav-toggle,
 .no-js .mobile-cta { display: none; }
+
+/* =========================================================
+   Яркость: переливы, градиентные акценты, подсветка
+   ========================================================= */
+
+/* Северное сияние — медленно дышащие пятна света */
+.aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;   /* держим свечение внутри секции, иначе страница едет вбок */
+  z-index: 0;
+}
+.aurora span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .55;
+  will-change: transform;
+}
+.aurora .a1 {
+  width: 46vw; min-width: 280px; aspect-ratio: 1;
+  top: -8%; left: -6%;
+  background: radial-gradient(circle, rgba(196, 248, 42, .55), rgba(196, 248, 42, 0) 68%);
+  animation: drift-a 22s ease-in-out infinite alternate;
+}
+.aurora .a2 {
+  width: 42vw; min-width: 260px; aspect-ratio: 1;
+  top: 18%; right: -10%;
+  background: radial-gradient(circle, rgba(53, 224, 255, .5), rgba(53, 224, 255, 0) 68%);
+  animation: drift-b 26s ease-in-out infinite alternate;
+}
+.aurora .a3 {
+  width: 38vw; min-width: 240px; aspect-ratio: 1;
+  bottom: -6%; left: 28%;
+  background: radial-gradient(circle, rgba(255, 61, 139, .45), rgba(255, 61, 139, 0) 68%);
+  animation: drift-c 30s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(14%, 12%, 0) scale(1.22); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to   { transform: translate3d(-16%, 16%, 0) scale(.9); }
+}
+@keyframes drift-c {
+  from { transform: translate3d(0, 0, 0) scale(.95); }
+  to   { transform: translate3d(18%, -14%, 0) scale(1.25); }
+}
+
+.section > .container { position: relative; z-index: 1; }
+
+/* Градиентный текст для ключевых слов */
+.grad {
+  background: linear-gradient(96deg, var(--lime) 0%, var(--cyan) 46%, var(--magenta) 96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Светящаяся кромка сверху у карточек */
+.card::before,
+.check-result::before,
+.contact-form-wrap::before {
+  content: "";
+  position: absolute;
+  left: 18px; right: 18px; top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196, 248, 42, .7), rgba(53, 224, 255, .7), transparent);
+  opacity: .5;
+  transition: opacity .25s ease;
+}
+.card:hover::before { opacity: 1; }
+
+.check-result, .contact-form-wrap { position: relative; }
+
+/* Подсветка под курсором */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%),
+              rgba(53, 224, 255, .13), transparent 65%);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.card:hover::after { opacity: 1; }
+.card > * { position: relative; z-index: 1; }
+
+/* Блик по главной кнопке */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: -60%; bottom: -60%;
+  left: -30%;
+  width: 28%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-18deg);
+  animation: sheen 4.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sheen {
+  0%, 62%  { left: -35%; }
+  88%, 100% { left: 118%; }
+}
+
+/* Номера и шаги — градиентом */
+.card-num, .step-num {
+  background: linear-gradient(120deg, var(--lime), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.step-num { border-color: rgba(53, 224, 255, .55); }
+
+/* Чип-метка раздела */
+.section-tag {
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  background: rgba(196, 248, 42, .1);
+  border: 1px solid rgba(196, 248, 42, .3);
+}
+.cases-box .section-tag {
+  background: rgba(255, 61, 139, .12);
+  border-color: rgba(255, 61, 139, .35);
+}
+
+/* Шкала переливается */
+.gauge-value { stroke: url(#gaugeGradient); }
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora span,
+  .btn-primary::after { animation: none !important; }
+  .btn-primary::after { display: none; }
+}

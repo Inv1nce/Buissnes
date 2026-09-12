@@ -107,13 +107,32 @@
      4. Появление блоков при прокрутке
      --------------------------------------------------------- */
   function initReveal() {
-    var items = document.querySelectorAll('.reveal');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
     if (!items.length) return;
 
-    if (reduceMotion || !('IntersectionObserver' in window)) {
+    function showAll() {
+      document.documentElement.removeAttribute('data-anim');
       items.forEach(function (el) { el.classList.add('is-in'); });
-      return;
     }
+
+    if (reduceMotion || !('IntersectionObserver' in window)) { showAll(); return; }
+
+    // Страница может быть встроена в высокий iframe, который сам не скроллится
+    // (так работает просмотрщик артефактов). Тогда наблюдатель не сработает —
+    // и прятать что-либо нельзя, иначе контента просто не будет видно.
+    if (document.documentElement.scrollHeight <= window.innerHeight + 8) { showAll(); return; }
+
+    document.documentElement.setAttribute('data-anim', 'on');
+
+    var vh = window.innerHeight || 800;
+    var pending = [];
+    items.forEach(function (el) {
+      // то, что уже на экране, показываем сразу — первый экран всегда полный
+      if (el.getBoundingClientRect().top < vh * 0.92) el.classList.add('is-in');
+      else pending.push(el);
+    });
+
+    if (!pending.length) return;
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -126,9 +145,12 @@
         setTimeout(function () { el.classList.add('is-in'); }, delay);
         observer.unobserve(el);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
 
-    items.forEach(function (el) { observer.observe(el); });
+    pending.forEach(function (el) { observer.observe(el); });
+
+    // подстраховка: если наблюдатель по любой причине молчит, показываем всё
+    window.setTimeout(showAll, 3000);
   }
 
   /* ---------------------------------------------------------
@@ -178,115 +200,199 @@
     if (!canvas || !canvas.getContext) return;
 
     var ctx = canvas.getContext('2d');
-    var w = 0, h = 0, dpr = 1;
-    var roads = [], pins = [];
-    var raf = null, t = 0, visible = true;
+    var w = 0, h = 0, dpr = 1, cell = 76;
+    var streets = [], routes = [];
+    var raf = null, last = 0, wasVisible = true;
+
+    var COLORS = ['#C4F82A', '#35E0FF', '#FF3D8B'];
 
     function rand(min, max) { return min + Math.random() * (max - min); }
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    /* Маршрут идёт по клеткам, как по улицам: только повороты под прямым углом */
+    function makeRoute() {
+      var cols = Math.ceil(w / cell), rows = Math.ceil(h / cell);
+      var x = Math.floor(rand(0, cols)), y = Math.floor(rand(0, rows));
+      var pts = [{ x: x * cell, y: y * cell }];
+      var horizontal = Math.random() < 0.5;
+      var legs = Math.floor(rand(4, 8));
+
+      for (var i = 0; i < legs; i++) {
+        var span = Math.floor(rand(1, 4)) * (Math.random() < 0.5 ? -1 : 1);
+        if (horizontal) x = Math.max(0, Math.min(cols, x + span));
+        else y = Math.max(0, Math.min(rows, y + span));
+        var next = { x: x * cell, y: y * cell };
+        var prev = pts[pts.length - 1];
+        if (next.x !== prev.x || next.y !== prev.y) pts.push(next);
+        horizontal = !horizontal;
+      }
+      if (pts.length < 3) return makeRoute();
+
+      var lengths = [], total = 0;
+      for (var j = 1; j < pts.length; j++) {
+        var d = Math.abs(pts[j].x - pts[j - 1].x) + Math.abs(pts[j].y - pts[j - 1].y);
+        lengths.push(d);
+        total += d;
+      }
+
+      return {
+        pts: pts,
+        lengths: lengths,
+        total: total,
+        color: pick(COLORS),
+        drawn: 0,
+        speed: rand(90, 165),      // пикселей в секунду
+        hold: 0,
+        holdFor: rand(1.1, 2.4),
+        fade: 1,
+        phase: 'draw'
+      };
+    }
 
     function build() {
-      roads = [];
-      pins = [];
+      cell = w < 620 ? 58 : 82;
+      streets = [];
+      for (var x = 0; x <= w + cell; x += cell) streets.push({ v: true, p: x, big: Math.random() < 0.22 });
+      for (var y = 0; y <= h + cell; y += cell) streets.push({ v: false, p: y, big: Math.random() < 0.22 });
 
-      var stepX = Math.max(70, w / 9);
-      var stepY = Math.max(70, h / 7);
-
-      for (var x = -stepX; x < w + stepX * 2; x += stepX) {
-        roads.push({ v: true, p: x + rand(-14, 14), big: Math.random() < 0.28 });
-      }
-      for (var y = -stepY; y < h + stepY * 2; y += stepY) {
-        roads.push({ v: false, p: y + rand(-14, 14), big: Math.random() < 0.28 });
-      }
-
-      var palette = ['#C4F82A', '#35E0FF', '#FF3D8B'];
-      var count = w < 620 ? 7 : 12;
-      // на широком экране держим метки правее — там, где нет текста
-      var minX = w >= 940 ? 0.42 : 0.04;
+      routes = [];
+      var count = w < 620 ? 3 : (w < 1100 ? 5 : 7);
       for (var i = 0; i < count; i++) {
-        pins.push({
-          x: rand(minX, 0.96) * w,
-          y: rand(0.08, 0.92) * h,
-          color: palette[i % palette.length],
-          phase: Math.random() * Math.PI * 2,
-          speed: rand(0.5, 1.1),
-          r: rand(2.2, 3.6)
-        });
+        var route = makeRoute();
+        route.drawn = reduceMotion ? route.total : rand(0, route.total * 0.8);
+        routes.push(route);
       }
     }
 
     function resize() {
       var rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = rect.width;
       h = rect.height;
-      if (!w || !h) return;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       build();
-      draw(0);
+      render();
     }
 
-    function draw(time) {
+    /* Рисуем маршрут до заданной длины, возвращаем точку «головы» */
+    function strokeRoute(route, upTo, width, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = route.color;
+      ctx.lineWidth = width;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(route.pts[0].x, route.pts[0].y);
+
+      var left = upTo, head = route.pts[0];
+      for (var i = 0; i < route.lengths.length; i++) {
+        var a = route.pts[i], b = route.pts[i + 1], len = route.lengths[i];
+        if (left >= len) {
+          ctx.lineTo(b.x, b.y);
+          head = b;
+          left -= len;
+        } else {
+          var k = len ? left / len : 0;
+          head = { x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k };
+          ctx.lineTo(head.x, head.y);
+          left = 0;
+          break;
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+      return head;
+    }
+
+    function marker(x, y, color, alpha, r) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      var halo = ctx.createRadialGradient(x, y, 0, x, y, r * 6);
+      halo.addColorStop(0, color + '66');
+      halo.addColorStop(1, color + '00');
+      ctx.fillStyle = halo;
+      ctx.beginPath();
+      ctx.arc(x, y, r * 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function render() {
       if (!w || !h) return;
       ctx.clearRect(0, 0, w, h);
 
-      // улицы
-      var drift = reduceMotion ? 0 : (time * 0.006) % 60;
-      ctx.lineCap = 'round';
-      roads.forEach(function (road) {
+      // сетка улиц
+      ctx.lineCap = 'butt';
+      streets.forEach(function (street) {
         ctx.beginPath();
-        ctx.strokeStyle = road.big ? 'rgba(150,180,255,.13)' : 'rgba(150,180,255,.07)';
-        ctx.lineWidth = road.big ? 2.2 : 1;
-        if (road.v) {
-          var x = road.p + drift * 0.4;
-          ctx.moveTo(x, -20);
-          ctx.lineTo(x, h + 20);
-        } else {
-          var y = road.p - drift * 0.25;
-          ctx.moveTo(-20, y);
-          ctx.lineTo(w + 20, y);
-        }
+        ctx.strokeStyle = street.big ? 'rgba(150,180,255,.11)' : 'rgba(150,180,255,.055)';
+        ctx.lineWidth = street.big ? 2 : 1;
+        if (street.v) { ctx.moveTo(street.p, 0); ctx.lineTo(street.p, h); }
+        else { ctx.moveTo(0, street.p); ctx.lineTo(w, street.p); }
         ctx.stroke();
       });
 
-      // метки
-      pins.forEach(function (pin) {
-        var pulse = reduceMotion ? 0.5
-          : (Math.sin(time * 0.0016 * pin.speed + pin.phase) + 1) / 2;
+      // маршруты: широкий мягкий след + яркая линия + светящаяся голова
+      routes.forEach(function (route) {
+        var a = route.fade;
+        strokeRoute(route, route.drawn, 9, 0.12 * a);
+        var head = strokeRoute(route, route.drawn, 2.2, 0.85 * a);
 
-        // ореол
-        var halo = ctx.createRadialGradient(pin.x, pin.y, 0, pin.x, pin.y, 22 + pulse * 12);
-        halo.addColorStop(0, pin.color + '55');
-        halo.addColorStop(1, pin.color + '00');
-        ctx.fillStyle = halo;
-        ctx.beginPath();
-        ctx.arc(pin.x, pin.y, 22 + pulse * 12, 0, Math.PI * 2);
-        ctx.fill();
+        marker(route.pts[0].x, route.pts[0].y, route.color, 0.5 * a, 2.4);
 
-        // кольцо
-        ctx.beginPath();
-        ctx.strokeStyle = pin.color + '66';
-        ctx.lineWidth = 1.2;
-        ctx.arc(pin.x, pin.y, 7 + pulse * 7, 0, Math.PI * 2);
-        ctx.stroke();
+        if (route.phase === 'draw') {
+          marker(head.x, head.y, route.color, 0.95 * a, 3.4);
+        } else {
+          // маршрут построен — ставим метку назначения
+          var end = route.pts[route.pts.length - 1];
+          marker(end.x, end.y, route.color, 0.95 * a, 4);
+          ctx.save();
+          ctx.globalAlpha = 0.5 * a;
+          ctx.strokeStyle = route.color;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.arc(end.x, end.y, 9, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+      });
+    }
 
-        // точка
-        ctx.beginPath();
-        ctx.fillStyle = pin.color;
-        ctx.arc(pin.x, pin.y, pin.r, 0, Math.PI * 2);
-        ctx.fill();
+    function step(dt) {
+      routes.forEach(function (route, i) {
+        if (route.phase === 'draw') {
+          route.drawn += route.speed * dt;
+          if (route.drawn >= route.total) { route.drawn = route.total; route.phase = 'hold'; }
+        } else if (route.phase === 'hold') {
+          route.hold += dt;
+          if (route.hold >= route.holdFor) route.phase = 'fade';
+        } else {
+          route.fade -= dt * 0.9;
+          if (route.fade <= 0) routes[i] = makeRoute();
+        }
       });
     }
 
     function loop(now) {
-      t = now;
-      draw(t);
+      var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
+      last = now;
+      step(dt);
+      render();
       raf = window.requestAnimationFrame(loop);
     }
 
     function start() {
       if (raf || reduceMotion) return;
+      last = 0;
       raf = window.requestAnimationFrame(loop);
     }
     function stop() {
@@ -296,6 +402,7 @@
     }
 
     resize();
+    start();   // стартуем сразу: наблюдатель в некоторых окружениях молчит
 
     var resizeTimer;
     window.addEventListener('resize', function () {
@@ -304,18 +411,20 @@
     });
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) stop();
-      else if (visible) start();
+      if (document.hidden) stop(); else if (wasVisible) start();
     });
 
-    // не крутим анимацию, когда шапка ушла с экрана
+    // наблюдатель только останавливает анимацию за пределами экрана,
+    // и только если он вообще работает в этом окружении
     if ('IntersectionObserver' in window) {
+      var seen = false;
       new IntersectionObserver(function (entries) {
-        visible = entries[0].isIntersecting;
+        var visible = entries[0].isIntersecting;
+        if (visible) seen = true;
+        if (!seen) return;
+        wasVisible = visible;
         if (visible && !document.hidden) start(); else stop();
       }, { threshold: 0 }).observe(canvas);
-    } else {
-      start();
     }
   }
 
@@ -536,7 +645,22 @@
   }
 
   /* ---------------------------------------------------------
-     10. Год в подвале
+     10. Подсветка карточек под курсором (только мышь)
+     --------------------------------------------------------- */
+  function initSpotlight() {
+    if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    document.querySelectorAll('.card').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     11. Год в подвале
      --------------------------------------------------------- */
   function initYear() {
     var el = document.getElementById('year');
@@ -553,5 +677,6 @@
   initHeroCanvas();
   initCheck();
   initForm();
+  initSpotlight();
   initYear();
 })();
